@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:open_filex/open_filex.dart';
-// import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -34,17 +33,7 @@ class _PdfScreenState extends State<PdfScreen> {
             children: [
               TextButton(
                   onPressed: () async {
-                    //await createPdfFile();
-                    //_pickFiles();
-                    //savePdfFile();
-                  },
-                  child: Text('create pdf')
-              ),
-
-              TextButton(
-                  onPressed: () async {
                     _pickFiles();
-                    // savePdfFile();
                   },
                   child: Text('select images')
               ),
@@ -68,7 +57,6 @@ class _PdfScreenState extends State<PdfScreen> {
     //convert each image to Uint8List
     print("as");
     for (var image in assetImage) {
-      //print(image.toString());
       await getImageBytes(image);
     }
     //create a list of images
@@ -177,30 +165,8 @@ class _PdfScreenState extends State<PdfScreen> {
       listOfImagePath.add(_paths![i].path.toString());
     }
 
-    //listOfImagePath.add(_paths!.map((e) => e.path.toString()));
-    // listOfImagePath.add(_paths != null ? _paths!.map((e) => e.path).toString() : '...');
-
-
    print("base list ${listOfImagePath}");
-    //
 
-    // await createPdfFile(listOfImagePath);
-
-    /*var abc;
-    for(int i=0;i<listOfImagePath.toString().split(',').length;i++)
-    {
-
-
-      var list = listOfImagePath.toString().split(',')[i];
-      print(list);
-
-
-      File imagefile = File(list.replaceAll(RegExp(r'\(|\)'), ''));
-
-      abc = imagefile.path;
-      //print(abc);
-      // img=imagefile.path.toString();
-    }*/
     await createPdfFile(listOfImagePath);
 
 

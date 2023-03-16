@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:better_player/better_player.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
@@ -30,13 +32,14 @@ class ExampleState extends State<Example> {
 
   Future<void> downloadFile() async {
     Dio dio = Dio();
-
+    setState(() {
+      downloading == false;
+    });
     try {
       var dir = await getApplicationDocumentsDirectory();
 
       print("Hariom)");
-      downloaddata = dir.path;
-      print(downloaddata.toString());
+      var abc = dir.path;
 
       await dio.download(imgUrl, "${dir.path}/myimage.mp4",
           onReceiveProgress: (rec, total) {
@@ -47,17 +50,25 @@ class ExampleState extends State<Example> {
             });
           });
 
+      downloaddata = "${dir.path}/myimage.mp4";
+
+      print(downloaddata.toString());
+
+
 
     } catch (e) {
       print(e);
     }
 
     setState(() {
-      downloading = false;
+      downloading = true;
       progressString = "Completed";
     });
     print("Download completed");
   }
+
+  BetterPlayerController? _betterPlayerController;
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,19 +76,21 @@ class ExampleState extends State<Example> {
       appBar: AppBar(
         title: Text("AppBar"),
       ),
-      body: Column(
+
+      body: downloading == false ?
+      CircularProgressIndicator()
+      :
+      Column(
         children: [
           Center(
-            child: downloading
-                ? Container(
-              height: 420.0,
+            child: Container(
+              height: 100.0,
               width: 300.0,
               child: Card(
                 color: Colors.black,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircularProgressIndicator(),
 
                     /*Image.file(File('/data/user/0/com.koffeekodes.image2pdfconverter/cache/file_picker/PXL_20230315_191356483.jpg'),
                     width: 50,
@@ -97,14 +110,26 @@ class ExampleState extends State<Example> {
                 ),
               ),
             )
-                : Text("No Data"),
           ),
-          /*Image.file(File('${downloaddata}/myimage.mp4'),
+          MaterialButton(
+            child: Text("play video",),
+              color: Colors.blue,
+              onPressed: (){
+
+              }
+          ),
+          BetterPlayer.file(downloaddata),
+
+          /*Image.file(File('${downloaddata}/myimage.jpg'),
             width: 500,
             height: 500,),*/
-          Text("${downloaddata}/myimage.mp4"),
+
+
+          Text('BOthi'),
+
         ],
       ),
     );
   }
+
 }

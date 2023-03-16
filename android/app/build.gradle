@@ -47,10 +47,13 @@ android {
         applicationId "com.koffeekodes.image2pdfconverter"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -68,4 +71,11 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.8.1'
+    testImplementation 'org.mockito:mockito-core:5.1.1'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    implementation 'com.android.support:multidex:1.0.3'
+
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

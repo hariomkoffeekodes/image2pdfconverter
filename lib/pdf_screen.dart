@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:open_filex/open_filex.dart';
@@ -19,6 +20,23 @@ class _PdfScreenState extends State<PdfScreen> {
   var pdf = pw.Document();
 
   List<Uint8List> imagesUint8list = [];
+
+  Future downloadFile(String url) async {
+    Dio dio = Dio();
+
+    try {
+      var dir = await getApplicationDocumentsDirectory();
+      await dio.download(url, "${dir.path}/myFile.txt",
+
+          /*onProgress: (rec, total) {
+        print("Rec: $rec , Total: $total");
+      }*/
+      );
+    } catch (e) {
+      print(e);
+    }
+    print("Download completed");
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -172,6 +172,7 @@ class _PdfScreenState extends State<PdfScreen> {
       _logException('Unsupported operation' + e.toString());
     } catch (e) {
       _logException(e.toString());
+
     }
     if (!mounted) return;
 

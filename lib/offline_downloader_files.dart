@@ -38,8 +38,6 @@ class ExampleState extends State<Example> {
     try {
       var dir = await getApplicationDocumentsDirectory();
 
-      print("Hariom)");
-      var abc = dir.path;
 
       await dio.download(imgUrl, "${dir.path}/myimage.mp4",
           onReceiveProgress: (rec, total) {
@@ -66,8 +64,6 @@ class ExampleState extends State<Example> {
     });
     print("Download completed");
   }
-
-  BetterPlayerController? _betterPlayerController;
 
 
   @override
@@ -118,7 +114,7 @@ class ExampleState extends State<Example> {
 
               }
           ),
-          BetterPlayer.file(downloaddata),
+          // BetterPlayer.file(downloaddata),
 
           /*Image.file(File('${downloaddata}/myimage.jpg'),
             width: 500,
